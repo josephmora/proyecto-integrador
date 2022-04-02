@@ -3,13 +3,12 @@ package com.joseph.proyecto.integrador.dao;
 import com.joseph.proyecto.integrador.dominio.Domicilio;
 import org.springframework.stereotype.Component;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.List;
 @Component
 public class DomicilioDAOH2 implements IDao <Domicilio>{
 
-    private static Connection getConnetion() throws Exception{
+    private static Connection getConnection() throws Exception{
         Class.forName("org.h2.Driver").newInstance();
         return DriverManager.getConnection("jdbc:h2:~/integradora","root","");
 
@@ -26,7 +25,7 @@ public class DomicilioDAOH2 implements IDao <Domicilio>{
         Domicilio domicilio = null;
 
         try{
-            connection = getConnetion();
+            connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM domicilios WHERE id= ?");
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();

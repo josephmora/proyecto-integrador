@@ -22,7 +22,7 @@ public class PacienteController {
 
 
     //metodo que resuelve la solicitud de la vista
-    @GetMapping("/hola")
+    @GetMapping("/paciente")
     //obtengo el email que viene del endpoint
     public String traerPaciente(Model model, @RequestParam("email") String email){
         //buscar al paciente con el email mediante el servicio , el controller usa al servicio para saber donde buscar los datos pedidos por la vista
