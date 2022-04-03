@@ -24,4 +24,13 @@ public class PacienteService  {
     public Paciente buscarPorEmail(String email) {
         return pacienteIDao.buscarPorEmail(email);
     }
+
+    public Paciente guardar(Paciente paciente){
+        return pacienteIDao.guardar(paciente);
+
+    }
+    public Paciente actualizar(Paciente paciente){
+        return null;
+
+    }
 }

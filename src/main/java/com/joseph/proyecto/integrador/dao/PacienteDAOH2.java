@@ -114,4 +114,56 @@ public class PacienteDAOH2 implements IDao<Paciente>{
         }
         return paciente;
     }
+
+    @Override
+    public Paciente guardar(Paciente paciente) {
+
+        Connection connection = null;
+        try {
+        connection = getConnection();
+        DomicilioDAOH2 domicilioDAOH2= new DomicilioDAOH2();
+        OdontologoDAOH2 odontologoDAOH2 = new OdontologoDAOH2();
+        Domicilio domicilio = domicilioDAOH2.guardar(paciente.getDomicilio()); //guardo el domicilio que obtengo de un paciente
+        Odontologo odontologo = odontologoDAOH2.guardar(paciente.getOdontologo());
+        paciente.getDomicilio().setId(domicilio.getId()); //duda , segun se hacer porque el que se retorna es paciente
+        paciente.getOdontologo().setId(odontologo.getId()); //seteo el id odontologo obtenido desde paciente
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                    "INSERT INTO paciente(nombre, apellido, email, dni, fecha_ingreso, domicilio_id, odontologo_id) " +
+                            "VALUES (?, ?, ?, ?, ? ,?,? )", Statement.RETURN_GENERATED_KEYS); //retorno el id de paciente
+        preparedStatement.setString(1, paciente.getNombre());
+        preparedStatement.setString(2, paciente.getApellido());
+        preparedStatement.setString(3, paciente.getEmail());
+        preparedStatement.setString(4, paciente.getDni());
+        preparedStatement.setDate(5, Date.valueOf(paciente.getFechaIngreso()));
+        preparedStatement.setInt(6, paciente.getDomicilio().getId());
+        preparedStatement.setInt(7, paciente.getOdontologo().getId());
+
+        preparedStatement.executeUpdate();
+        //obtengo el id generado en la vista del paciente y se lo seteo
+        ResultSet claves = preparedStatement.getGeneratedKeys();
+        while(claves.next()){
+            paciente.setId(claves.getInt(1)); //seteo el id que viene de la BD
+
+        }
+        preparedStatement.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                    connection.close();
+                }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+
+        return paciente;
+    }
+
+    @Override
+    public Paciente actualizar(Paciente elemento) {
+        return null;
+    }
 }

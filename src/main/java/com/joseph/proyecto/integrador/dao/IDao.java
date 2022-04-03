@@ -6,5 +6,7 @@ public interface IDao <T>{
     List<T> listarElementos();
     T buscarPorId(int id);
     T buscarPorEmail(String email);
+    T guardar(T elemento);
+    T actualizar(T elemento);
 
 }

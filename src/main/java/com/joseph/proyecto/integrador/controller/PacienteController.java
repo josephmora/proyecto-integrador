@@ -5,9 +5,11 @@ import com.joseph.proyecto.integrador.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-@Controller
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/pacientes")
+
 public class PacienteController {
     //los metodos del controlador  se usa a traves de un servicio
 
@@ -20,7 +22,7 @@ public class PacienteController {
     }
 
 
-
+    //si agrego RestController y RequestMapping esto deja de funcionar y no se pueden hacer consultas por url
     //metodo que resuelve la solicitud de la vista
     @GetMapping("/paciente")
     //obtengo el email que viene del endpoint
@@ -35,4 +37,10 @@ public class PacienteController {
 
 
     }
+    @PostMapping
+    public Paciente guardarPaciente(@RequestBody Paciente paciente){
+
+        return pacienteService.guardar(paciente);
+    }
+
 }

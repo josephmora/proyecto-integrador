@@ -12,6 +12,9 @@ public class Paciente {
     private Domicilio domicilio;
     private Odontologo odontologo;
 
+    public Paciente() {
+    }
+
     public Paciente(String nombre, String apellido, String email, String dni, LocalDate fechaIngreso, Domicilio domicilio, Odontologo odontologo) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -59,5 +62,13 @@ public class Paciente {
 
     public Domicilio getDomicilio() {
         return domicilio;
+    }
+
+    public Odontologo getOdontologo() {
+        return odontologo;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
