@@ -163,7 +163,43 @@ public class PacienteDAOH2 implements IDao<Paciente>{
     }
 
     @Override
-    public Paciente actualizar(Paciente elemento) {
-        return null;
+    public Paciente actualizar(Paciente paciente) {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            DomicilioDAOH2 domicilioDAOH2= new DomicilioDAOH2();
+            OdontologoDAOH2 odontologoDAOH2 = new OdontologoDAOH2();
+            Domicilio domicilio = domicilioDAOH2.actualizar(paciente.getDomicilio()); //actualizo el domicilio que obtengo de un paciente
+            Odontologo odontologo = odontologoDAOH2.actualizar(paciente.getOdontologo());
+
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "UPDATE paciente SET nombre=?, apellido=?, email=?, dni=?, fecha_ingreso=?, domicilio_id=?, odontologo_id=? " +
+                            "WHERE id=?");
+            preparedStatement.setString(1, paciente.getNombre());
+            preparedStatement.setString(2, paciente.getApellido());
+            preparedStatement.setString(3, paciente.getEmail());
+            preparedStatement.setString(4, paciente.getDni());
+            preparedStatement.setDate(5, Date.valueOf(paciente.getFechaIngreso()));
+            preparedStatement.setInt(6, paciente.getDomicilio().getId());
+            preparedStatement.setInt(7, paciente.getOdontologo().getId());
+            preparedStatement.setInt(8, paciente.getId()); //Seteo el id en el where a actualizar
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+
+        return paciente;
     }
 }

@@ -30,7 +30,9 @@ public class PacienteService  {
 
     }
     public Paciente actualizar(Paciente paciente){
-        return null;
+        return pacienteIDao.actualizar(paciente);
 
     }
+
+
 }
