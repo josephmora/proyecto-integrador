@@ -25,7 +25,7 @@ public class PacienteService  {
         return pacienteIDao.buscarPorEmail(email);
     }
 
-    public Paciente guardar(Paciente paciente){
+    public Paciente guardarPaciente(Paciente paciente){
         return pacienteIDao.guardar(paciente);
 
     }
