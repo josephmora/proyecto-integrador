@@ -51,6 +51,7 @@ public class DomicilioDAOH2 implements IDao <Domicilio>{
     }
 
     @Override
+    //no hay email para domicilio
     public Domicilio buscarPorEmail(String email) {
         return null;
     }
@@ -121,5 +122,34 @@ public class DomicilioDAOH2 implements IDao <Domicilio>{
         }
 
         return domicilio;
+    }
+
+    @Override
+    public void eliminar(int id) {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "DELETE FROM domicilio WHERE id= ?");
+
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+
+
     }
 }

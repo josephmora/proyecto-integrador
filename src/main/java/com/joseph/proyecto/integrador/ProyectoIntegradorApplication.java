@@ -14,6 +14,7 @@ public class ProyectoIntegradorApplication {
 		Connection connection = null;
 		try {
 			Class.forName("org.h2.Driver").newInstance();
+			//aqui es donde se ejecuta solo init para cargar los datos
 			connection = DriverManager.getConnection("jdbc:h2:~/integradora;INIT=RUNSCRIPT FROM 'create.sql'","root","");
 
 		} catch (Exception e) {
@@ -33,8 +34,8 @@ public class ProyectoIntegradorApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProyectoIntegradorApplication.class, args);
 		cargarBD();
+		SpringApplication.run(ProyectoIntegradorApplication.class, args); //ejecuta la aplicación
 	}
 
 }

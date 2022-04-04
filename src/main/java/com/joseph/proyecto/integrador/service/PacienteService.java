@@ -37,5 +37,9 @@ public class PacienteService  {
         return pacienteIDao.buscarPorId(id);
     }
 
+    public void eliminarPaciente(int id){
+        pacienteIDao.eliminar(id);
+    }
+
 
 }

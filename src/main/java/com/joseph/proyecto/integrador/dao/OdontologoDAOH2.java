@@ -89,6 +89,7 @@ public class OdontologoDAOH2 implements IDao<Odontologo> {
     }
 
     @Override
+    //odontologo no tiene email por eso no se implementa la logica
     public Odontologo buscarPorEmail(String email) {
         return null;
     }
@@ -161,5 +162,35 @@ public class OdontologoDAOH2 implements IDao<Odontologo> {
         }
 
         return odontologo;
+    }
+
+    @Override
+    public void eliminar(int id) {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "DELETE FROM odontologo WHERE id=?");
+
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+
     }
 }

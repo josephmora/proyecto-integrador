@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/pacientes")
 
@@ -51,6 +53,23 @@ public class PacienteController {
     @GetMapping("/{id}")
     public Paciente buscarPaciente(@PathVariable int id){
         return pacienteService.buscarPorId(id);
+    }
+    @DeleteMapping("/{id}")
+    public String eliminarPaciente(@PathVariable int id){
+        String respuesta = "Error, el id ingresado no es correcto";
+        if(pacienteService.buscarPorId(id)!= null){
+            //si existe un id consultado
+            String PacienteEncontrado = pacienteService.buscarPorId(id).getNombre() +
+                    " "+ pacienteService.buscarPorId(id).getApellido();
+            pacienteService.eliminarPaciente(id);
+            respuesta= "Se elimino al paciente " + PacienteEncontrado + " con id " + id;
+        }
+        return respuesta;
+    }
+
+    @GetMapping
+    public List<Paciente> listarPacientes(){
+        return pacienteService.listaPacientes();
     }
 
 }
