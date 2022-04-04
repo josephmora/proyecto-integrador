@@ -47,4 +47,10 @@ public class PacienteController {
     public Paciente actualizarPaciente(@RequestBody Paciente paciente){
         return pacienteService.actualizar(paciente); //utilizo el servicio para actualizar y le paso como argumento el paciente que viene de la consulta
     }
+
+    @GetMapping("/{id}")
+    public Paciente buscarPaciente(@PathVariable int id){
+        return pacienteService.buscarPorId(id);
+    }
+
 }

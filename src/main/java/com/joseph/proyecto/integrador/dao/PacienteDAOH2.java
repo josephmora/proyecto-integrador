@@ -30,7 +30,7 @@ public class PacienteDAOH2 implements IDao<Paciente>{
             OdontologoDAOH2 odontologoDAOH2 = new OdontologoDAOH2();
 
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM pacientes");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM paciente");
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()){
@@ -66,7 +66,48 @@ public class PacienteDAOH2 implements IDao<Paciente>{
     @Override
     public Paciente buscarPorId(int id) {
 
-        return null;
+        Connection connection = null;
+        Paciente paciente= null;
+        Domicilio domicilio = null;
+        Odontologo odontologo = null;
+
+
+        try{
+            DomicilioDAOH2 domicilioDAOH2 = new DomicilioDAOH2();
+            OdontologoDAOH2 odontologoDAOH2 = new OdontologoDAOH2();
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM paciente WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                //si encuentro el correo obtendo el id
+                int id_domicilio = rs.getInt(7);
+                int id_odontologo = rs.getInt(8);
+
+                //uso el dao de domicilio para buscar todos los datos de domicilio
+                domicilio= domicilioDAOH2.buscarPorId(id_domicilio);
+                odontologo= odontologoDAOH2.buscarPorId(id_odontologo);
+                paciente = new Paciente(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4),rs.getString(5),rs.getDate(6).toLocalDate(), domicilio, odontologo);
+
+            }
+
+
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                connection.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return paciente;
     }
 
     @Override
@@ -81,7 +122,7 @@ public class PacienteDAOH2 implements IDao<Paciente>{
             DomicilioDAOH2 domicilioDAOH2 = new DomicilioDAOH2();
             OdontologoDAOH2 odontologoDAOH2 = new OdontologoDAOH2();
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM pacientes WHERE email LIKE ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM paciente WHERE email LIKE ?");
             preparedStatement.setString(1, email);
             ResultSet rs = preparedStatement.executeQuery();
 

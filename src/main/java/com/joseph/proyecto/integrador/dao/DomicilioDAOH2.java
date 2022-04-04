@@ -26,7 +26,7 @@ public class DomicilioDAOH2 implements IDao <Domicilio>{
 
         try{
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM domicilios WHERE id= ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM domicilio WHERE id= ?");
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){

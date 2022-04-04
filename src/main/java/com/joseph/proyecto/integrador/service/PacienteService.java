@@ -33,6 +33,9 @@ public class PacienteService  {
         return pacienteIDao.actualizar(paciente);
 
     }
+    public Paciente buscarPorId(int id){
+        return pacienteIDao.buscarPorId(id);
+    }
 
 
 }
