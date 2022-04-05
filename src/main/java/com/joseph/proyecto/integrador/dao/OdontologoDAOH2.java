@@ -5,11 +5,12 @@ import com.joseph.proyecto.integrador.dominio.Domicilio;
 import com.joseph.proyecto.integrador.dominio.Odontologo;
 import com.joseph.proyecto.integrador.dominio.Paciente;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-@Component
+@Repository
 public class OdontologoDAOH2 implements IDao<Odontologo> {
 
     private static Connection getConnection() throws  Exception{

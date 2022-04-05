@@ -16,16 +16,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/turnos")
 public class TurnoController {
+    @Autowired //este es el tercer metodo de inyección de dependencias
     private TurnoService turnoService ;
+    @Autowired
     private PacienteService pacienteService;
+    @Autowired
     private OdontologoService odontologoService;
 
-    @Autowired
-    public TurnoController(TurnoService turnoService, PacienteService pacienteService, OdontologoService odontologoService) {
-        this.turnoService = turnoService;
-        this.pacienteService = pacienteService;
-        this.odontologoService = odontologoService;
-    }
+
 
 
 
@@ -44,6 +42,22 @@ public class TurnoController {
         }
         return respuesta;
     }
+
+//    @PostMapping
+//    public ResponseEntity<String> registraTurno(@RequestBody Turno turno){
+//        ResponseEntity<String> respuesta;
+//        //controlar si los id son existentes
+//        Paciente paciente = pacienteService.buscarPorId(turno.getPaciente().getId());
+//        Odontologo odontologo = odontologoService.buscarPorId(turno.getPaciente().getId());
+//        if(paciente!=null && odontologo!= null){
+//            //okey, podemos agregar el turno
+//           respuesta = new ResponseEntity<>("Turno registrado con exito",HttpStatus.OK  );
+//        }
+//        else{
+//          respuesta =  new ResponseEntity<>("Ha fallado el registro",HttpStatus.BAD_REQUEST );
+//        }
+//        return respuesta;
+//    }
 
     @GetMapping
     //devuelve una respuesta de tipo http 500, 400 etc

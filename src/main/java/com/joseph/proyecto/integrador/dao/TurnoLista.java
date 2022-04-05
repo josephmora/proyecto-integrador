@@ -4,11 +4,12 @@ import com.joseph.proyecto.integrador.dominio.Odontologo;
 import com.joseph.proyecto.integrador.dominio.Paciente;
 import com.joseph.proyecto.integrador.dominio.Turno;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-@Component
+@Repository
 public class TurnoLista implements IDao<Turno>{
 
     private List<Turno> turnos;

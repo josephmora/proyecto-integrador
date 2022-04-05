@@ -17,7 +17,7 @@ public class PacienteController {
     //creo un atributo de tipo PacienteService, no se crea un objeto new Pacie... porque
     //los datos son obtenidos del Dao a traves del servicio
     private final PacienteService pacienteService; //creo un objeto de tipo pacienteSe.. para usar el controller
-    @Autowired //conecta al modelo con el controlador
+    @Autowired //este es el primer metodo de inyección de dependencia con constructor
     public PacienteController(PacienteService pacienteService) { //de donde se passa
         this.pacienteService = pacienteService;
     }
