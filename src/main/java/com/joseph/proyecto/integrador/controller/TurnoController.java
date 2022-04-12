@@ -1,8 +1,8 @@
 package com.joseph.proyecto.integrador.controller;
 
-import com.joseph.proyecto.integrador.dominio.Odontologo;
-import com.joseph.proyecto.integrador.dominio.Paciente;
-import com.joseph.proyecto.integrador.dominio.Turno;
+import com.joseph.proyecto.integrador.modelo.Odontologo;
+import com.joseph.proyecto.integrador.modelo.Paciente;
+import com.joseph.proyecto.integrador.modelo.Turno;
 import com.joseph.proyecto.integrador.service.OdontologoService;
 import com.joseph.proyecto.integrador.service.PacienteService;
 import com.joseph.proyecto.integrador.service.TurnoService;

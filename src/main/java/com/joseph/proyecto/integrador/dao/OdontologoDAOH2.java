@@ -1,10 +1,7 @@
 package com.joseph.proyecto.integrador.dao;
 
 
-import com.joseph.proyecto.integrador.dominio.Domicilio;
-import com.joseph.proyecto.integrador.dominio.Odontologo;
-import com.joseph.proyecto.integrador.dominio.Paciente;
-import org.springframework.stereotype.Component;
+import com.joseph.proyecto.integrador.modelo.Odontologo;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;

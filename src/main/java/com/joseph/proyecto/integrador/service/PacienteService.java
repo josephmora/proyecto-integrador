@@ -1,7 +1,7 @@
 package com.joseph.proyecto.integrador.service;
 
 import com.joseph.proyecto.integrador.dao.IDao;
-import com.joseph.proyecto.integrador.dominio.Paciente;
+import com.joseph.proyecto.integrador.modelo.Paciente;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

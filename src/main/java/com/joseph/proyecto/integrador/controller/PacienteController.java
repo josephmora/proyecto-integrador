@@ -1,6 +1,6 @@
 package com.joseph.proyecto.integrador.controller;
 
-import com.joseph.proyecto.integrador.dominio.Paciente;
+import com.joseph.proyecto.integrador.modelo.Paciente;
 import com.joseph.proyecto.integrador.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
