@@ -1,6 +1,7 @@
-package com.joseph.proyecto.integrador.modelo;
+package com.joseph.proyecto.integrador.modelo.dto;
 
 
+import com.joseph.proyecto.integrador.modelo.dominio.Paciente;
 
 public class DomicilioDTO {
     private int id;

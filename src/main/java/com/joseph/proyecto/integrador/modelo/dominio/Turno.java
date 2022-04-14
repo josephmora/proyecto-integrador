@@ -1,9 +1,9 @@
-package com.joseph.proyecto.integrador.modelo;
+package com.joseph.proyecto.integrador.modelo.dominio;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 @Entity
-@Table
+@Table(name = "turnos")
 
 public class Turno {
     @Id
@@ -11,10 +11,10 @@ public class Turno {
     private int id;
     private LocalDate fecha;
 
-    @ManyToOne
+    @ManyToOne //muchos turnos tiene un paciente
     @JoinColumn(name ="paciente_id" , nullable = false)
     private Paciente paciente;
-    @ManyToOne
+    @ManyToOne //muchos turnos tiene un odontologo
     @JoinColumn(name ="odontologo_id", nullable = false)
     private Odontologo odontologo;
 

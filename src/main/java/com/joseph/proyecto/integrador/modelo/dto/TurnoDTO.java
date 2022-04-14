@@ -1,4 +1,4 @@
-package com.joseph.proyecto.integrador.modelo;
+package com.joseph.proyecto.integrador.modelo.dto;
 
 import java.time.LocalDate;
 

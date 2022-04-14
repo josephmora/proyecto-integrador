@@ -1,4 +1,4 @@
-package com.joseph.proyecto.integrador.modelo;
+package com.joseph.proyecto.integrador.modelo.dominio;
 
 import javax.persistence.*;
 
@@ -16,8 +16,8 @@ public class Domicilio {
     private String localidad;
     @Column(name = "provincia")
     private String provincia;
-//como sera mapeado en la otra clase
-    @OneToOne(mappedBy="domicilio")
+//aqui se coloca "domicilio" como sera mapeado en la clase paciente, es decir como se llamo al atributo del otro lado
+    @OneToOne(mappedBy="domicilio") //un domicilio tien un paciente
     private Paciente paciente;
 
 

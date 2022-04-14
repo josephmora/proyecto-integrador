@@ -1,14 +1,13 @@
-package com.joseph.proyecto.integrador.modelo;
+package com.joseph.proyecto.integrador.modelo.dominio;
 
-import org.springframework.data.annotation.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.Set;
 
 
 @Entity
-@Table(name="Odontologo")
+@Table
 public class Odontologo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +17,9 @@ public class Odontologo {
     private String matricula;
 
 
-    @OneToMany
-    @JoinColumn(name="paciente_id",nullable = false)
-    private Paciente paciente;
+    @OneToMany(mappedBy= "odontologo")
+    @JsonIgnore
+    private Set<Paciente> pacientes;
 
     @OneToMany(mappedBy="odontologo")
     private Set<Turno> turnos;

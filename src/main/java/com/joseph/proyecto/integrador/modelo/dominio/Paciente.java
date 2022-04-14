@@ -1,13 +1,12 @@
-package com.joseph.proyecto.integrador.modelo;
+package com.joseph.proyecto.integrador.modelo.dominio;
 
-import org.springframework.data.annotation.Id;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
-@Table(name="Paciente")
+@Table(name = "Pacientes")
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,15 +16,17 @@ public class Paciente {
     private String email;
     private String dni;
     private LocalDate fechaIngreso;
-    @OneToMany
-    @JoinColumn(name= "domicilio_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name= "domicilio_id", nullable = true)
     private Domicilio domicilio;
 
 
-    @OneToOne(mappedBy="paciente")
+    @ManyToOne //muchos pacientes tienen un mismo odontologo
+    @JoinColumn(name = "paciente_id", nullable = true)
     private Odontologo odontologo;
 
     @OneToMany(mappedBy="paciente")
+    @JsonIgnore //evita el ciclo infinito de llamar una y otra vez un dato , ignora el dato turnos , siempre va en Muchos
     private Set<Turno> turnos;
 
 
