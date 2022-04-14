@@ -1,7 +1,6 @@
 package com.joseph.proyecto.integrador.service;
 
-import com.joseph.proyecto.integrador.modelo.Odontologo;
-import com.joseph.proyecto.integrador.modelo.OdontologoDTO;
+import com.joseph.proyecto.integrador.modelo.dto.OdontologoDTO;
 
 import java.util.Set;
 

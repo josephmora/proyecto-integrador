@@ -1,6 +1,6 @@
 package com.joseph.proyecto.integrador.repository;
 
-import com.joseph.proyecto.integrador.modelo.Turno;
+import com.joseph.proyecto.integrador.modelo.dominio.Turno;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,11 +1,10 @@
 package com.joseph.proyecto.integrador.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.joseph.proyecto.integrador.modelo.Paciente;
-import com.joseph.proyecto.integrador.modelo.PacienteDTO;
+import com.joseph.proyecto.integrador.modelo.dominio.Paciente;
+import com.joseph.proyecto.integrador.modelo.dto.PacienteDTO;
 import com.joseph.proyecto.integrador.repository.IPacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -33,7 +32,7 @@ public class PacienteService implements IPacienteService{
     }
 
     @Override
-    public PacienteDTO leerUnPaciente(int id) {
+    public PacienteDTO leerUnPacientePorId(int id) {
         Optional<Paciente> paciente = pacienteRepository.findById(id);
         PacienteDTO pacienteDTO = null;
         if(paciente.isPresent()){
@@ -44,15 +43,16 @@ public class PacienteService implements IPacienteService{
     }
 
     @Override
-    public PacienteDTO leerUnPaciente(String email) {
+    public PacienteDTO leerUnPacientePorEmail(String email) {
         //llamo al metodo con HQL que defini en el repository de paciente para encontrar por email
-        Paciente paciente = pacienteRepository.buscarPacienteConEmail(email);
+    /*    Paciente paciente = pacienteRepository.buscarPacienteConEmail(email);
         PacienteDTO pacienteDTO = null;
         if(paciente != null){
             pacienteDTO= mapeo.convertValue(paciente,PacienteDTO.class);
         }
 
-        return pacienteDTO;
+        return pacienteDTO;*/
+        return null;
 
     }
 

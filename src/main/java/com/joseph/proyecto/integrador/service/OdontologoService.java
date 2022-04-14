@@ -1,8 +1,8 @@
 package com.joseph.proyecto.integrador.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.joseph.proyecto.integrador.modelo.Odontologo;
-import com.joseph.proyecto.integrador.modelo.OdontologoDTO;
+import com.joseph.proyecto.integrador.modelo.dominio.Odontologo;
+import com.joseph.proyecto.integrador.modelo.dto.OdontologoDTO;
 import com.joseph.proyecto.integrador.repository.IOdontologoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

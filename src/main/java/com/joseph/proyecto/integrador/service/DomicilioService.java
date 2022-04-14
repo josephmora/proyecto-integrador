@@ -1,8 +1,8 @@
 package com.joseph.proyecto.integrador.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.joseph.proyecto.integrador.modelo.Domicilio;
-import com.joseph.proyecto.integrador.modelo.DomicilioDTO;
+import com.joseph.proyecto.integrador.modelo.dominio.Domicilio;
+import com.joseph.proyecto.integrador.modelo.dto.DomicilioDTO;
 import com.joseph.proyecto.integrador.repository.IDomicilioRepositoy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

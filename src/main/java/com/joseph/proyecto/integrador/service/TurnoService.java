@@ -1,8 +1,8 @@
 package com.joseph.proyecto.integrador.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.joseph.proyecto.integrador.modelo.Turno;
-import com.joseph.proyecto.integrador.modelo.TurnoDTO;
+import com.joseph.proyecto.integrador.modelo.dominio.Turno;
+import com.joseph.proyecto.integrador.modelo.dto.TurnoDTO;
 import com.joseph.proyecto.integrador.repository.ITurnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
