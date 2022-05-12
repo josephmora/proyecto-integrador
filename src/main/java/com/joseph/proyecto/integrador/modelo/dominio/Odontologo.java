@@ -24,7 +24,8 @@ public class Odontologo {
     @OneToMany(mappedBy="odontologo")
     private Set<Turno> turnos;
 
-
+    public Odontologo() {
+    }
 
     public int getId() {
         return id;

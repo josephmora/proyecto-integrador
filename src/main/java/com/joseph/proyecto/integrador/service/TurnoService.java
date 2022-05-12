@@ -1,6 +1,7 @@
 package com.joseph.proyecto.integrador.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.joseph.proyecto.integrador.exceptions.BadRequestException;
 import com.joseph.proyecto.integrador.modelo.dominio.Turno;
 import com.joseph.proyecto.integrador.modelo.dto.TurnoDTO;
 import com.joseph.proyecto.integrador.repository.ITurnoRepository;
@@ -26,8 +27,17 @@ public class TurnoService implements ITurnoService{
     }
 
     @Override
-    public void crearTurno(TurnoDTO turnoDTO) {
+    public void crearTurno(TurnoDTO turnoDTO) throws BadRequestException {
+
+        try{
         guardarTurno(turnoDTO);
+
+        }
+        catch (Exception e){
+            throw new BadRequestException("No se encontro turno " + e);
+
+        }
+
     }
 
     @Override
@@ -46,10 +56,14 @@ public class TurnoService implements ITurnoService{
     }
 
     @Override
-    public void eliminarTurno(int id) {
-        turnoRepository.deleteById(id);
+    public void eliminarTurno(int id) throws BadRequestException {
+        if(turnoRepository.findById(id).isPresent()) {
+            turnoRepository.deleteById(id);
+        }else
+            throw new BadRequestException("No se encontro el turno con id: " + id + ". Ingresar un id correcto");
 
     }
+
 
     @Override
     public Set<TurnoDTO> listarTodosTurnos() {

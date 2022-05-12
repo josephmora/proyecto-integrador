@@ -1,7 +1,11 @@
 package com.joseph.proyecto.integrador.modelo.dominio;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+@Getter
+@Setter
 @Entity
 @Table(name= "Domicilio")
 public class Domicilio {
@@ -17,34 +21,13 @@ public class Domicilio {
     @Column(name = "provincia")
     private String provincia;
 //aqui se coloca "domicilio" como sera mapeado en la clase paciente, es decir como se llamo al atributo del otro lado
-    @OneToOne(mappedBy="domicilio") //un domicilio tien un paciente
-    private Paciente paciente;
+    //@OneToOne(mappedBy="domicilio") //un domicilio tien un paciente
+    //private Paciente paciente;  //no es necesario si es una relacion unidireccional , tampoco iria un controller de domicilio
 
 
-
-
-
-    public int getId() {
-        return id;
+    public Domicilio() {
     }
 
-    public String getCalle() {
-        return calle;
-    }
 
-    public int getNumero() {
-        return numero;
-    }
 
-    public String getLocalidad() {
-        return localidad;
-    }
-
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

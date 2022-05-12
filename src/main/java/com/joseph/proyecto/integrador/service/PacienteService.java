@@ -21,6 +21,8 @@ public class PacienteService implements IPacienteService{
 
     private void guardarPaciente(PacienteDTO pacienteDTO){
         Paciente paciente = mapeo.convertValue(pacienteDTO, Paciente.class);
+        //Domicilio domicilio = paciente.getDomicilio();
+       // domicilio.setPaciente(paciente);
         pacienteRepository.save(paciente);
 
     }
@@ -45,14 +47,14 @@ public class PacienteService implements IPacienteService{
     @Override
     public PacienteDTO leerUnPacientePorEmail(String email) {
         //llamo al metodo con HQL que defini en el repository de paciente para encontrar por email
-    /*    Paciente paciente = pacienteRepository.buscarPacienteConEmail(email);
+        Paciente paciente = pacienteRepository.buscarPacienteConEmail(email);
         PacienteDTO pacienteDTO = null;
         if(paciente != null){
             pacienteDTO= mapeo.convertValue(paciente,PacienteDTO.class);
         }
 
-        return pacienteDTO;*/
-        return null;
+        return pacienteDTO;
+
 
     }
 

@@ -1,16 +1,12 @@
 package com.joseph.proyecto.integrador.controller;
 
-import com.joseph.proyecto.integrador.modelo.dominio.Paciente;
 import com.joseph.proyecto.integrador.modelo.dto.PacienteDTO;
 import com.joseph.proyecto.integrador.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -23,10 +19,10 @@ public class PacienteController {
 
 
 
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
 
-    public PacienteDTO traerPacientePorEmail(@PathVariable String email){
-        return pacienteService.leerUnPacientePorEmail(email);
+    public ResponseEntity<PacienteDTO> traerPacientePorEmail(@PathVariable String email){
+        return ResponseEntity.ok(pacienteService.leerUnPacientePorEmail(email));
 
 
     }
@@ -45,8 +41,14 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public PacienteDTO buscarPacientePorId(@PathVariable int id){
-        return pacienteService.leerUnPacientePorId(id);
+    public ResponseEntity<PacienteDTO> buscarPacientePorId(@PathVariable int id){
+        if(pacienteService.leerUnPacientePorId(id) != null){
+        return ResponseEntity.ok(pacienteService.leerUnPacientePorId(id));
+
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarPaciente(@PathVariable int id){

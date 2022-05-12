@@ -18,7 +18,8 @@ public class Turno {
     @JoinColumn(name ="odontologo_id", nullable = false)
     private Odontologo odontologo;
 
-
+    public Turno() {
+    }
 
     public int getId() {
         return id;
