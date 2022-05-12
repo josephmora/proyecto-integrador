@@ -1,67 +1,54 @@
 package com.joseph.proyecto.integrador.controller;
 
-import com.joseph.proyecto.integrador.dominio.Odontologo;
-import com.joseph.proyecto.integrador.dominio.Paciente;
+import com.joseph.proyecto.integrador.modelo.dominio.Odontologo;
+import com.joseph.proyecto.integrador.modelo.dto.OdontologoDTO;
 import com.joseph.proyecto.integrador.service.OdontologoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+import java.util.Set;
 @RestController
 @RequestMapping("/odontologos")
-
 public class OdontologoController {
-    private final OdontologoService odontologoService;
-
+    //instancio el servicio
     @Autowired
-    public OdontologoController(OdontologoService odontologoService) {
-        this.odontologoService= odontologoService;
-    }
-//cuando trabajamos como api , esta vista deja de funcionar (thymeleaf)
-    @GetMapping("/odontologo")
+    private OdontologoService odontologoService;
 
-    public String traerOdontologo(Model model, @RequestParam("id") int id){
-        Odontologo odontologo = odontologoService.buscarPorId(id);
-        model.addAttribute("nombre_odontologo", odontologo.getNombre() );
-        model.addAttribute("apellido_odontologo", odontologo.getApellido());
-
-        return "index";
-    }
     @PostMapping
-    public Odontologo guardarOdontologo(@RequestBody Odontologo odontologo){
+    //requestBody asigna el cuerpo de la solicitud http al objeto PacienteDTO  (Los vincula)
+    public ResponseEntity<String> crearUnOdontologo(@RequestBody OdontologoDTO odontologoDTO){
 
-        return odontologoService.guardarOdontologo(odontologo);
+        odontologoService.crearOdontologo(odontologoDTO);
+        return ResponseEntity.ok(HttpStatus.OK + " Odontologo creado con éxito");
     }
 
     @PutMapping
-    public Odontologo actualizarOdontologo(@RequestBody Odontologo odontologo){
-        return odontologoService.actualizarOdontologo(odontologo); //utilizo el servicio para actualizar y le paso como argumento el paciente que viene de la consulta
+    public ResponseEntity<String> actualizarUnOdontologo(@RequestBody OdontologoDTO odontologoDTO){
+        odontologoService.actualizarUnOdontologo(odontologoDTO); //utilizo el servicio para actualizar y le paso como argumento el paciente que viene de la consulta
+        return ResponseEntity.ok(HttpStatus.OK + " Odontologo actualizado con éxito");
     }
 
     @GetMapping("/{id}")
-    public Odontologo buscarOdontologo(@PathVariable int id){
-        return odontologoService.buscarPorId(id);
+    public ResponseEntity<OdontologoDTO> buscarOdontologoPorId(@PathVariable int id){
+        if(odontologoService.leerUnOdontologo(id) != null){
+            return ResponseEntity.ok(odontologoService.leerUnOdontologo(id));
+
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
     @DeleteMapping("/{id}")
-    public String eliminarOdontologo(@PathVariable int id){
-        String respuesta = "Error, el id ingresado no es correcto";
-        if(odontologoService.buscarPorId(id)!= null){
-            //si existe un id consultado
-            String odontologoEncontrado = odontologoService.buscarPorId(id).getNombre() +
-                    " "+ odontologoService.buscarPorId(id).getApellido();
-            odontologoService.eliminarOdontologo(id);
-            respuesta= "Se elimino al odontologo " + odontologoEncontrado + " con id " + id;
-        }
-        return respuesta;
+    public ResponseEntity<String> eliminarOdontologo(@PathVariable int id){
+        odontologoService.elimiarUnOdontologo(id);
+        return ResponseEntity.ok(HttpStatus.OK + "Se elimino el registro con éxito") ;
     }
 
     @GetMapping
-    public List<Odontologo> listarOdontologo(){
-        return odontologoService.listaOdontologos();
+    public Set<OdontologoDTO> listarTodosOdontologos(){
+        return odontologoService.listarTodosOdontologos();
     }
-
 
 }

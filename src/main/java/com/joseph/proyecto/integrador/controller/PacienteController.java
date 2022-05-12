@@ -1,74 +1,64 @@
 package com.joseph.proyecto.integrador.controller;
 
-import com.joseph.proyecto.integrador.dominio.Paciente;
+import com.joseph.proyecto.integrador.modelo.dto.PacienteDTO;
 import com.joseph.proyecto.integrador.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/pacientes")
 
 public class PacienteController {
-    //los metodos del controlador  se usa a traves de un servicio
-
-    //creo un atributo de tipo PacienteService, no se crea un objeto new Pacie... porque
-    //los datos son obtenidos del Dao a traves del servicio
-    private final PacienteService pacienteService; //creo un objeto de tipo pacienteSe.. para usar el controller
-    @Autowired //este es el primer metodo de inyección de dependencia con constructor
-    public PacienteController(PacienteService pacienteService) { //de donde se passa
-        this.pacienteService = pacienteService;
-    }
+    //instancio el servicio
+    @Autowired
+    private PacienteService pacienteService;
 
 
-    //si agrego RestController y RequestMapping esto deja de funcionar y no se pueden hacer consultas por url
-    //metodo que resuelve la solicitud de la vista
-    @GetMapping("/paciente")
-    //obtengo el email que viene del endpoint
-    public String traerPaciente(Model model, @RequestParam("email") String email){
-        //buscar al paciente con el email mediante el servicio , el controller usa al servicio para saber donde buscar los datos pedidos por la vista
-        Paciente paciente = pacienteService.buscarPorEmail(email);
-        //model me permite devolver atributos que luego se lo pasamos al modelo
-        model.addAttribute("nombre", paciente.getNombre());
-        model.addAttribute("apellido", paciente.getApellido());
 
-        return "index";
+    @GetMapping("/email/{email}")
+
+    public ResponseEntity<PacienteDTO> traerPacientePorEmail(@PathVariable String email){
+        return ResponseEntity.ok(pacienteService.leerUnPacientePorEmail(email));
 
 
     }
     @PostMapping
-    public Paciente guardarPaciente(@RequestBody Paciente paciente){
+    //requestBody asigna el cuerpo de la solicitud http al objeto PacienteDTO  (Los vincula)
+    public ResponseEntity<String> crearUnPaciente(@RequestBody PacienteDTO pacienteDTO){
 
-        return pacienteService.guardarPaciente(paciente);
+       pacienteService.crearPaciente(pacienteDTO);
+        return ResponseEntity.ok(HttpStatus.OK + " Paciente creado con éxito");
     }
 
     @PutMapping
-    public Paciente actualizarPaciente(@RequestBody Paciente paciente){
-        return pacienteService.actualizar(paciente); //utilizo el servicio para actualizar y le paso como argumento el paciente que viene de la consulta
+    public ResponseEntity<String> actualizarPaciente(@RequestBody PacienteDTO pacienteDTO){
+        pacienteService.actualizarUnPaciente(pacienteDTO); //utilizo el servicio para actualizar y le paso como argumento el paciente que viene de la consulta
+        return ResponseEntity.ok(HttpStatus.OK + " Paciente actualizado con éxito");
     }
 
     @GetMapping("/{id}")
-    public Paciente buscarPaciente(@PathVariable int id){
-        return pacienteService.buscarPorId(id);
+    public ResponseEntity<PacienteDTO> buscarPacientePorId(@PathVariable int id){
+        if(pacienteService.leerUnPacientePorId(id) != null){
+        return ResponseEntity.ok(pacienteService.leerUnPacientePorId(id));
+
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
     @DeleteMapping("/{id}")
-    public String eliminarPaciente(@PathVariable int id){
-        String respuesta = "Error, el id ingresado no es correcto";
-        if(pacienteService.buscarPorId(id)!= null){
-            //si existe un id consultado
-            String PacienteEncontrado = pacienteService.buscarPorId(id).getNombre() +
-                    " "+ pacienteService.buscarPorId(id).getApellido();
-            pacienteService.eliminarPaciente(id);
-            respuesta= "Se elimino al paciente " + PacienteEncontrado + " con id " + id;
-        }
-        return respuesta;
+    public ResponseEntity<String> eliminarPaciente(@PathVariable int id){
+        pacienteService.eliminarPaciente(id);
+        return ResponseEntity.ok(HttpStatus.OK + "Se elimino el registro con éxito") ;
     }
 
     @GetMapping
-    public List<Paciente> listarPacientes(){
-        return pacienteService.listaPacientes();
+    public Set<PacienteDTO> listarTodosPacientes(){
+        return pacienteService.ListarTodosPacientes();
     }
 
 }
